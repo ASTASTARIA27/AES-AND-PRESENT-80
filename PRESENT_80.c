@@ -98,10 +98,6 @@ void pLayer(uint8_t State[8]) {
 
 //For Encryption
 void Encrypt(uint8_t State[8]) {
-    //------Plaintext1-----
-    for(int i=0; i<8; i++) {
-        State[i] = Plaintext_1[i];
-    }
     for(int round = 0; round < 31; round++) {
         addRoundkey(State, round);  
         sboxLayer(State);           
@@ -120,9 +116,24 @@ void print(unsigned char State[8]) {
 }
 
 int main() {
-    Key_Expansion(EncryptionKey);
-    uint8_t State[8] = {0};//State
-    Encrypt(State);
-    print(State);
+
+    //-------Plaintext 1--------
+    Key_Expansion(EncryptionKey_1);
+    Encrypt(Plaintext_1);
+    print(Plaintext_1);
+    //-------Plaintext 2--------
+       
+    Key_Expansion(EncryptionKey_2); // Must re-expand whenever the key changes
+    Encrypt(Plaintext_2);
+    print(Plaintext_2);
+    //-------Plaintext 3--------
     
+    Key_Expansion(EncryptionKey_3);
+    Encrypt(Plaintext_3);
+    print(Plaintext_3);
+    //-------Plaintext 4--------
+
+    Key_Expansion(EncryptionKey_4);
+    Encrypt(Plaintext_4);
+    print(Plaintext_4);
 }
