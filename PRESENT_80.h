@@ -2,7 +2,7 @@
 #define PRESENT_80_H
 #include <stdint.h>
 #include <string.h>
-unsigned char EncryptionKey[10];
+
 //----Encryption key 1 and Plaintext 1
 uint8_t EncryptionKey_1[10] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
 uint8_t Plaintext_1[8]   = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
@@ -22,4 +22,9 @@ const uint8_t sbox[16] = {
 
 //Functions Declarations
 void Key_Expansion(unsigned char *EncryptionKey);
+void addRoundkey(uint8_t State[8],int round);
+void sboxLayer(uint8_t State[8]);
+void pLayer(uint8_t State[8]);
+void Encrypt(uint8_t State[8]);
+void print(unsigned char State[8]);
 #endif

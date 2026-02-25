@@ -121,19 +121,21 @@ int main() {
     Key_Expansion(EncryptionKey_1);
     Encrypt(Plaintext_1);
     print(Plaintext_1);
+
     //-------Plaintext 2--------
-       
     Key_Expansion(EncryptionKey_2); // Must re-expand whenever the key changes
     Encrypt(Plaintext_2);
     print(Plaintext_2);
+
     //-------Plaintext 3--------
-    
     Key_Expansion(EncryptionKey_3);
     Encrypt(Plaintext_3);
     print(Plaintext_3);
-    //-------Plaintext 4--------
 
+    //-------Plaintext 4--------
     Key_Expansion(EncryptionKey_4);
     Encrypt(Plaintext_4);
     print(Plaintext_4);
+
+    return 0;
 }

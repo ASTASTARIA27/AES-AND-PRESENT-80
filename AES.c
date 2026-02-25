@@ -188,17 +188,19 @@ int main() {
     //the formula to find the 1D index from 2D coordinates (i,j) is Index = (Coloum *4) + row
     unsigned char State[4][4];
 //-----------------TEST Plaintext 1-------------
-    for(int i=0;i<4;i++) {
-        for(int j = 0;j<4;j++) {
-            State[i][j] = Plaintext_1[j*4 +i];
+    Key_Expansion(Encryption_Key, RoundConst); 
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 4; j++) {
+            State[i][j] = Plaintext_1[j * 4 + i];
         }
     }
     Encrypt(State);
     print(State);
 //-----------------TEST Plaintext 2--------------
-    for(int i=0;i<4;i++) {
-        for(int j = 0;j<4;j++) {
-            State[i][j] = Plaintext_2[j*4 +i];
+    Key_Expansion(Encryption_Key, RoundConst); 
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 4; j++) {
+            State[i][j] = Plaintext_2[j * 4 + i];
         }
     }
     Encrypt(State);
