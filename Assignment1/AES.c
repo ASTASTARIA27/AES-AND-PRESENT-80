@@ -172,6 +172,7 @@ void Encrypt(unsigned char State[4][4]) {
 
 //For printing both ciphertexts
 void print(unsigned char State[4][4]) {
+    printf("Ciphertext: ");
     for (int j = 0; j < 4; j++) {      // Iterate through columns
         for (int i = 0; i < 4; i++) {  // Iterate through rows
             printf("%02X ", State[i][j]);
@@ -179,6 +180,7 @@ void print(unsigned char State[4][4]) {
     }
     printf("\n");
 }
+
 
 int main() {
     Key_Expansion(Encryption_Key, RoundConst);
@@ -201,6 +203,39 @@ int main() {
     for(int i = 0; i < 4; i++) {
         for(int j = 0; j < 4; j++) {
             State[i][j] = Plaintext_2[j * 4 + i];
+        }
+    }
+    Encrypt(State);
+    print(State);
+
+/*
+-------------------AES-128 Validation (ECB) Test1*/ 
+    Key_Expansion(ECB_EncryptionKey_1, RoundConst); 
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 4; j++) {
+            State[i][j] = ECB_Plaintext_1[j * 4 + i];
+        }
+    }
+    Encrypt(State);
+    print(State);
+
+/*
+-------------------AES-128 Validation (ECB) Test2*/
+    Key_Expansion(ECB_EncryptionKey_2, RoundConst); 
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 4; j++) {
+            State[i][j] = ECB_Plaintext_2[j * 4 + i];
+        }
+    }
+    Encrypt(State);
+    print(State);
+
+/*
+-------------------AES-128 Validation (ECB) Test3*/
+    Key_Expansion(Encryption_Key_3, RoundConst); 
+    for(int i = 0; i < 4; i++) {
+        for(int j = 0; j < 4; j++) {
+            State[i][j] = ECB_Plaintext_3[j * 4 + i];
         }
     }
     Encrypt(State);

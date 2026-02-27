@@ -1,14 +1,29 @@
 #include <stdio.h>
 #include "PRESENT_80.h"
+/*
+    PRESENT-80 ENCRYPTION WORKFLOW
+    1. KEY EXPANSION:
+        -Expand the 80-bit Master Key into 32 Round Keys (64 bits each).
+        -Uses: 61-bit Left Circular Rotation, S-Box substitution on the top 4 bits, and a Round Counter XOR to break symmetry.
+    2. INITIAL STEP:
+        -The 64-bit Plaintext is loaded into the State.
+    3. MAIN ROUNDS (1 to 31):
+        -addRoundKey: XOR the current 64-bit State with the 64-bit Round Key.
+        -sBoxLayer: Pass the State through sixteen 4-bit S-Boxes at the same time.
+        -pLayer: A bit-level permutation that moves each bit to a new position.
+    4. FINAL STEP:
+        -After 31 rounds, a final addRoundKey is performed using the 32nd Round Key to produce the Ciphertext.
+*/
+
 
 /*
-Present_80 encryption process has 31 rounds plus one final round, each round it uses 64bit round key 
-IT has total of 32 rounds so total size will be 32*8=256
+    Present_80 encryption process has 31 rounds plus one final round, each round it uses 64bit round key 
+    IT has total of 32 rounds so total size will be 32*8=256
 */
 unsigned char keyExpansion[256];
 void Key_Expansion(unsigned char *EncryptionKey) {   
     //For circular shift instead of doing left shift of 61 bits .
-    //I am doing the right shift of 19 bits.
+    //doing the right shift of 19 bits.
     uint8_t key[10];
     memcpy(key,EncryptionKey,10);
     uint8_t temp[10];
@@ -136,6 +151,25 @@ int main() {
     Key_Expansion(EncryptionKey_4);
     Encrypt(Plaintext_4);
     print(Plaintext_4);
+
+
+/*
+-------------------PRESENT-80 Validation (ECB) Test1*/
+    Key_Expansion(ECB_EncryptionKey_1);
+    Encrypt(ECB_Plaintext_1);
+    print(ECB_Plaintext_1);
+
+/*
+-------------------PRESENT-80 Validation (ECB) Test2*/
+    Key_Expansion(ECB_EncryptionKey_2);
+    Encrypt(ECB_Plaintext_2);
+    print(ECB_Plaintext_2);
+/*
+-------------------PRESENT-80 Validation (ECB) Test3*/
+    Key_Expansion(Encryption_Key_3);
+    Encrypt(ECB_Plaintext_3);
+    print(ECB_Plaintext_3);
+
 
     return 0;
 }
